@@ -4,16 +4,12 @@ import os
 
 excel_name = 'test.xlsx'
 sheet_name = 'fox'
-img = Image('sample.png')
+img_list = []
 '''
 TODO:Separate function
     1.Return file_name function
     2.Connection excel function
     3.Paste function
-'''
-
-
-'''
 TODO:About png_num
     example 1-1-1 is left_num, center_num, right_num
     1.left_num == folder's num
@@ -21,6 +17,7 @@ TODO:About png_num
 '''
 png_num = 2
 for i in range(0, png_num):
+    img = Image(img_list[i])
     i = str(i)
     wb = load_workbook(filename = excel_name)
     sheet_name = "sheet_kun" + i
