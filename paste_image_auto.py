@@ -24,14 +24,7 @@ for i in range(0, png_num):
     i = str(i)
     wb = load_workbook(filename = excel_name)
     sheet_name = "sheet_kun" + i
-    '''
-    TODO:sheet_num for correct insert sheet's name 
-        1.Get sheet name before evidence
-        2.Get sheet number from 1's sheet name
-        3.Insert sheet number to sheet_num 
-    '''
-    sheet_num = int(i) + 1
-    ws2 = wb.create_sheet(index = sheet_num, title = sheet_name)
+    ws2 = wb.create_sheet(title = sheet_name)
     ws2['A1'] = "※画面キャプチャーを添付する"
     ws2.add_image(img, 'A2')
     wb.save(filename = excel_name)
