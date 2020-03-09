@@ -3,14 +3,35 @@ from openpyxl.drawing.image import Image
 import os
 
 excel_name = 'test.xlsx'
-wb = load_workbook(excel_name)
-ws = wb.active
-ws['A1'] = "hello_from_Workbook"
+sheet_name = 'fox'
 img = Image('sample.png')
-ws.add_image(img, 'A2')
-for i in range(0, 3):
+'''
+TODO:Separate function
+    1.Return file_name function
+    2.Connection excel function
+    3.Paste function
+'''
+
+
+'''
+TODO:About png_num
+    example 1-1-1 is left_num, center_num, right_num
+    1.left_num == folder's num
+    2.
+'''
+png_num = 2
+for i in range(0, png_num):
     i = str(i)
+    wb = load_workbook(filename = excel_name)
     sheet_name = "sheet_kun" + i
-    ws2 = wb.create_sheet(title=sheet_name)
+    '''
+    TODO:sheet_num for correct insert sheet's name 
+        1.Get sheet name before evidence
+        2.Get sheet number from 1's sheet name
+        3.Insert sheet number to sheet_num 
+    '''
+    sheet_num = int(i) + 1
+    ws2 = wb.create_sheet(index = sheet_num, title = sheet_name)
     ws2['A1'] = "※画面キャプチャーを添付する"
-wb.save(filename = "test.xlsx")
+    ws2.add_image(img, 'A2')
+    wb.save(filename = excel_name)
