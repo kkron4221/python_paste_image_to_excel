@@ -1,20 +1,16 @@
-from openpyxl import Workbook
+from openpyxl import load_workbook
 from openpyxl.drawing.image import Image
 import os
 
-/*Purpose: This code is automatic paste evidence task to excel sheet.
-* 1. Get file name from evidence file.
-* 2. Get file image from evidence file.
-* 3. Connect excel sheet.
-* 4. Add sheet in excel from file name.
-* 5. Paste file image to same name's sheet.
-*/
-
-wb = Workbook()
-
-excel_name = ''
-png_info = ''
-
-img = Image(png_info)
-ws.add_image(png_info, 'A1')
-wb.save('add_png_file.xlsx')
+excel_name = 'test.xlsx'
+wb = load_workbook(excel_name)
+ws = wb.active
+ws['A1'] = "hello_from_Workbook"
+img = Image('sample.png')
+ws.add_image(img, 'A2')
+for i in range(0, 3):
+    i = str(i)
+    sheet_name = "sheet_kun" + i
+    ws2 = wb.create_sheet(title=sheet_name)
+    ws2['A1'] = "※画面キャプチャーを添付する"
+wb.save(filename = "test.xlsx")
