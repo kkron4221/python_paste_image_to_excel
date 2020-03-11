@@ -2,23 +2,24 @@ from openpyxl import load_workbook
 from openpyxl.drawing.image import Image
 import glob, os, re, cv2
 
+
 def check_img_size(img):
     # low size image change other size
     img_check = cv2.imread(img)
     img_check_hight = img_check.shape[0]
     if img_check_hight > 700:
-        print("Big image")
         return 32
-    print("small image")
     return 22
 
 def paste_image(ws2, right_num_groups):
+    before_cell_num = 0
     for num in range(len(right_num_groups)):
         capture_num = 2
         if num != 0:
             cell_size = check_img_size(right_num_groups[num - 1])
-            capture_num = num * cell_size + 2
+            capture_num = before_cell_num + cell_size + 2
         capture_area = 'A' + str(capture_num)
+        before_cell_num = capture_num
         ws2.add_image(Image(right_num_groups[num]), capture_area)
 
 def connect_excel(right_num_groups, folder_num):
