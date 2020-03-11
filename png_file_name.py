@@ -2,14 +2,27 @@ from openpyxl import load_workbook
 from openpyxl.drawing.image import Image
 import glob, os, re, cv2
 
-
+'''
+Description to shorten the interval of pasting 
+when the already pasted image is small
+'''
 def check_img_size(img):
-    # low size image change other size
     img_check = cv2.imread(img)
     img_check_hight = img_check.shape[0]
-    if img_check_hight > 700:
-        return 32
-    return 22
+    cell_interval = 0
+    if img_check_hight < 500:
+        cell_interval = 20
+    elif img_check_hight < 600:
+        cell_interval = 23
+    elif img_check_hight < 700:
+        cell_interval = 26
+    elif img_check_hight < 800:
+        cell_interval = 30
+    elif img_check_hight < 900:
+        cell_interval = 33
+    else:
+        print("ERROR 予期しないサイズのファイルがあります。")
+    return cell_interval
 
 def paste_image(ws2, right_num_groups):
     before_cell_num = 0
@@ -33,7 +46,7 @@ def connect_excel(right_num_groups, folder_num):
 
 # TODO: change excel's path and evidence folder path
 excel_name = 'test.xlsx'
-evidence_folder = "C:\\Users\\kusano\\Documents\\evidence"
+evidence_folder = "C:\\Users\\username\\Documents\\evidence"
 folder_list = os.listdir(evidence_folder)
 re_word = r'([0-9]-){2}[0-9]'
 check_list = []
